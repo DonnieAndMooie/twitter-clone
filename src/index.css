@@ -30,7 +30,7 @@
 
 .google{
     font-size: 32px !important;
-    color: rgb(233, 188, 10);
+    color: grey
 }
 
 .login h2{
@@ -102,5 +102,4 @@ a{
 .sign-up{
     color: grey;
     margin-top: 40px;
-    text-align: left;
 }
