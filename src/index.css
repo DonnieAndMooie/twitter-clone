@@ -1,0 +1,106 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Helvetica, sans-serif;
+}
+.login-page{
+    background-color: rgba(0, 0, 0, 0.4);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login{
+    background-color: white;
+    height: 650px;
+    width: 600px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.twitter,
+.google{
+    color: rgb(29, 155, 240);
+    font-size: 40px !important;
+}
+
+.google{
+    font-size: 32px !important;
+    color: rgb(233, 188, 10);
+}
+
+.login h2{
+    margin: 20px 0;
+    font-size: 32px;
+}
+
+.google-sign-in,
+.sign-in{
+    border: 1px solid grey;
+    padding: 5px 15px;
+    border-radius: 18px;
+    width: 80%;
+    text-align: center;
+    color: rgb(61, 60, 60);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.google-sign-in:hover{
+    background-color: rgb(245, 240, 240);
+}
+
+.or{
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+}
+
+.or hr{
+    background-color: grey;
+    width: 200px;
+    height: 1px;
+    border: none;
+    margin: 0 10px;
+}
+
+.login input{
+    height: 50px;
+    width: 60%;
+    font-size: 22px;
+    margin-top: 20px;
+    border-radius: 10px;
+    border: 1px solid grey;
+    padding: 5px 10px;
+}
+
+.sign-in{
+    background-color: black;
+    color: white;
+    height: 42px;
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+.sign-in:hover{
+    background-color: rgb(36, 35, 35);
+}
+
+a{
+    text-decoration: none;
+    color: rgb(29, 155, 240);;
+}
+
+.sign-up{
+    color: grey;
+    margin-top: 40px;
+    text-align: left;
+}
