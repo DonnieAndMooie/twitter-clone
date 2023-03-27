@@ -1,10 +1,12 @@
 import React from 'react'
 import TwitterIcon from '@mui/icons-material/Twitter';
 import GoogleIcon from '@mui/icons-material/Google';
-import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+import { getAuth, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
 import { app } from '../Firebase'
 import { useState } from 'react';
 import Homepage from './Homepage';
+import SignUp from './SignUp';
+import { Navigate } from 'react-router-dom';
 
 export default function Login() {
   const [signedIn, setSignedIn] = useState(false)
@@ -29,10 +31,33 @@ export default function Login() {
       console.error(`An error occurred: ${errorCode} - ${errorMessage}`)
     })
   }
+
+  function submitHandler(e){
+    e.preventDefault()
+    console.log("submitted")
+    const email = document.getElementById("login-email").value
+    const password = document.getElementById("login-password").value
+    const auth = getAuth()
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user
+        console.log(user)
+        setSignedIn(true)
+      })
+      .catch((error) => {
+        const errorElement = document.querySelector(".error-message")
+        errorElement.classList.remove("hide")
+        const errorCode = error.code
+        const errorMessage = error.message
+
+        console.error(`An error occurred ${errorCode} - ${errorMessage}`)
+      })
+
+  }
   
   if (signedIn){
     return(
-      <Homepage></Homepage>
+      <Navigate to={"/dashboard"}></Navigate>
     )
   }
 
@@ -50,10 +75,14 @@ export default function Login() {
             <p>or</p>
             <hr />
           </div>
-          <input type="text" placeholder='Email'/>
-          <input type="password" placeholder='Password' />
-          <button className='sign-in' type='submit'>Sign In</button>
-          <p className='sign-up'>Don't have an account? <a href="/">Sign Up</a></p>
+          <form action="" onSubmit={(e) => submitHandler(e)}>
+            <input type="text" placeholder='Email' id='login-email'/>
+            <input type="password" placeholder='Password' id='login-password'/>
+            <button className='sign-in' type='submit'>Sign In</button>
+            <p className="error-message hide">Incorrect email or password</p>
+          </form>
+          
+          <p className='sign-up'>Don't have an account? <a href="/sign-up">Sign Up</a></p>
         </div>
         
     </div>
