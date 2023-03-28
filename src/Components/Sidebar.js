@@ -40,7 +40,7 @@ export default function Sidebar({currentUser}) {
       <button className="tweet">Tweet</button>
       
       <div className="user">
-        {userData && userData.picture ? <img src={userData.picture} alt="Profile"/> : <AccountCircleIcon/>}
+        {userData && userData.picture ? <img src={userData.picture} alt="Profile"/> : <AccountCircleIcon className="account-circle"/>}
         <p className='name'>{userData ? userData.name : ""}</p>
         <p>@{userData ? userData.username : ""}</p>
       </div>

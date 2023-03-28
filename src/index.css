@@ -153,6 +153,7 @@ a{
 .sidebar{
     padding: 15px 30px;
     height: 100vh;
+    border-right: 1px solid rgb(219, 217, 217);
 }
 
 .sidebar-item{
@@ -189,7 +190,8 @@ a{
     font-weight: bold;
 }
 
-.tweet:hover{
+.tweet:hover,
+.tweetbox-tweetbtn:hover{
     background-color: rgb(14, 106, 167);
 }
 
@@ -237,4 +239,81 @@ a{
     color: gray;
     justify-self: flex-start;
     margin-left: 10px;
+}
+
+.account-circle{
+    font-size: 32px !important;
+    grid-row: 1 / 3;
+}
+
+.feed{
+    padding: 10px;
+    border-right: 1px solid rgb(219, 217, 217);
+}
+
+.tab-container{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.tab-container p{
+    padding: 10px 80px;
+    cursor: pointer;
+}
+
+.selected{
+    border-bottom: 3px solid rgb(29, 155, 240);;
+}
+
+.tab-container p:hover{
+    background-color: rgb(216, 203, 203);
+}
+
+.tweetbox{
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    grid-template-rows: 40px 1fr 40px;
+    padding: 10px;
+}
+
+.tweetbox img{
+    grid-column: 1;
+    grid-row: 1;
+    border-radius: 100px;
+    height: 40px;
+}
+
+
+.tweetbox input{
+    grid-row: 2;
+    grid-column: 2;
+    height: 100px;
+    font-size: 18px;
+    border: none;
+    border-bottom: 1px solid rgb(219, 217, 217);
+    margin-bottom: 10px;
+}
+
+.tweetbox .icons{
+    display: flex;
+    gap: 5px;
+    grid-row: 3;
+    grid-column: 2;
+    cursor: pointer;
+    color: rgb(29, 155, 240);;
+}
+
+.tweetbox-tweetbtn{
+    padding: 10px 20px;
+    background-color: rgb(29, 155, 240);
+    color: white;
+    border: none;
+    border-radius: 24px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: auto;
+    margin-right: 10px;
 }
