@@ -4,27 +4,29 @@ import GoogleIcon from '@mui/icons-material/Google';
 import { getAuth, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
 import { app } from '../Firebase'
 import { useState } from 'react';
-import Homepage from './Homepage';
-import SignUp from './SignUp';
 import { Navigate } from 'react-router-dom';
+import { db } from '../Firebase';
+import { setDoc, doc } from 'firebase/firestore';
 
-export default function Login() {
+export default function Login({setCurrentUser}) {
   const [signedIn, setSignedIn] = useState(false)
-  const  [currentUser, setCurrentUser] = useState()
 
-  function googleSignIn(){
+ function googleSignIn(){
     const provider = new GoogleAuthProvider()
     const auth = getAuth(app)
     signInWithPopup(auth, provider)
-    .then((result) => {
+    .then(async (result) => {
       const credential = GoogleAuthProvider.credentialFromResult(result)
       const token = credential.accessToken
 
       const user = result.user
-      console.log("signed in")
-      console.log(user)
       setSignedIn(true)
       setCurrentUser(user)
+      await setDoc(doc(db, "users", user.uid), {
+        name: user.displayName,
+        username: user.displayName.replace(/\s/g, '').toLowerCase(),
+        picture: user.photoURL
+     })
     }).catch((error) => {
       const errorCode = error.code
       const errorMessage = error.message
@@ -34,15 +36,14 @@ export default function Login() {
 
   function submitHandler(e){
     e.preventDefault()
-    console.log("submitted")
     const email = document.getElementById("login-email").value
     const password = document.getElementById("login-password").value
     const auth = getAuth()
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user
-        console.log(user)
         setSignedIn(true)
+        setCurrentUser(user)
       })
       .catch((error) => {
         const errorElement = document.querySelector(".error-message")

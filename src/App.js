@@ -1,10 +1,10 @@
 import './App.css';
 import Login from './Components/Login';
 
-function App() {
+function App({setCurrentUser}) {
   return (
     <div className="app">
-      <Login></Login>
+      <Login setCurrentUser={setCurrentUser}></Login>
     </div>
   );
 }

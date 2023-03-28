@@ -3,6 +3,9 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { Navigate } from 'react-router-dom';
 import { useState } from 'react';
+import { setDoc, doc } from "firebase/firestore"
+import { db } from '../Firebase';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export default function SignUp() {
   const [signedUp, setSignedUp] = useState(false)
@@ -24,11 +27,13 @@ export default function SignUp() {
     const password = document.getElementById("password").value
     const auth = getAuth()
     createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         const user = userCredential.user
-        console.log("Account created")
-        console.log(user)
         setSignedUp(true)
+        await setDoc(doc(db, "users", user.uid), {
+          name: document.getElementById("name").value,
+          username: document.getElementById("username").value.replace(/\s/g, ''),
+       })
       })
       .catch((error) => {
         const errorCode = error.code

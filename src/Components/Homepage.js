@@ -1,7 +1,10 @@
 import React from 'react'
+import Sidebar from './Sidebar'
 
-export default function Homepage() {
+export default function Homepage({currentUser}) {
   return (
-    <div>Homepage</div>
+    <div className="home">
+      <Sidebar currentUser={currentUser}></Sidebar>
+    </div>
   )
 }
