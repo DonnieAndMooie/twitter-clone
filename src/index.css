@@ -154,6 +154,8 @@ a{
     padding: 15px 30px;
     height: 100vh;
     border-right: 1px solid rgb(219, 217, 217);
+    position: sticky;
+    top: 0;
     
 }
 
@@ -395,6 +397,9 @@ a{
 
 .right-widgets{
     padding: 5px 20px;
+    height: 100vh;
+    position: sticky;
+    top: 0;
 }
 
 .right-widgets input{
