@@ -273,9 +273,12 @@ a{
 
 .tweetbox{
     display: grid;
-    grid-template-columns: 40px 1fr;
-    grid-template-rows: 40px 1fr 40px;
+    grid-template-columns: 50px 1fr;
+    grid-template-rows: 1fr 40px;
     padding: 10px;
+    align-items: center;
+    border-bottom: 1px solid rgb(216, 203, 203);
+    margin-bottom: 20px;
 }
 
 .tweetbox img{
@@ -287,9 +290,9 @@ a{
 
 
 .tweetbox input{
-    grid-row: 2;
+    grid-row: 1;
     grid-column: 2;
-    height: 100px;
+    height: 60px;
     font-size: 18px;
     border: none;
     border-bottom: 1px solid rgb(219, 217, 217);
@@ -299,10 +302,10 @@ a{
 .tweetbox .icons{
     display: flex;
     gap: 5px;
-    grid-row: 3;
+    grid-row: 2;
     grid-column: 2;
     cursor: pointer;
-    color: rgb(29, 155, 240);;
+    color: rgb(29, 155, 240);
 }
 
 .tweetbox-tweetbtn{
@@ -316,4 +319,72 @@ a{
     font-weight: bold;
     margin-left: auto;
     margin-right: 10px;
+}
+
+.tweet-item{
+    border-bottom: 1px solid rgb(219, 217, 217);
+    display: grid;
+    grid-template-columns: 50px 1fr 40px;
+    grid-row: 20px 1fr 40px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+.tweet-item img{
+    height: 40px;
+    border-radius: 100px;
+    grid-row: 1 / 3;
+    grid-column: 1;
+}
+
+.tweet-item .author{
+    display: flex;
+    gap: 10px;
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.tweet-item .text{
+    grid-row: 2;
+    grid-column: 2;
+}
+
+.tweet-item .name{
+    font-weight: bold;
+}
+
+.tweet-item .username{
+    color: rgb(129, 125, 125);
+}
+
+.tweet-item .tweet-icons{
+    display: flex;
+    gap: 20px;
+    grid-row: 3;
+    grid-column: 2;
+    align-items: center;
+    font-size: 30px;
+}
+
+.tweet-icons img{
+    height: 20px;
+}
+
+.comment,
+.retweet,
+.like{
+    cursor: pointer;
+    border-radius: 100px;
+}
+
+.comment:hover{
+    background-color: rgba(29, 155, 240, 0.4);
+}
+
+.retweet:hover{
+    background-color: rgba(5, 110, 5, 0.4);
+}
+
+.like:hover{
+    background-color: rgba(255, 0, 0, 0.4);
 }

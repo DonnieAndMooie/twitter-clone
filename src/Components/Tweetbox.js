@@ -11,7 +11,6 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 export default function Tweetbox({currentUser}) {
 const [userData, setUserData] = useState()
-console.log(currentUser)
 
   useEffect(() => {
     async function getData(){

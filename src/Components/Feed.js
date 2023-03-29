@@ -1,7 +1,34 @@
-import React from 'react'
+import { collection, getDocs, onSnapshot, query } from 'firebase/firestore'
+import React, { useEffect, useState } from 'react'
 import Tweetbox from './Tweetbox'
+import { db } from '../Firebase'
+import Tweet from './Tweet'
 
 export default function Feed({currentUser}) {
+  const [tweets, setTweets] = useState([])
+  
+  useEffect(() => {
+    async function fetchTweets(){
+      const q = query(collection(db, "tweets"))
+      onSnapshot(q, function(snapshot){
+        snapshot.docChanges().forEach(function(change){
+          const id = change.doc.id
+          const tweet = change.doc.data()
+          displayTweet(tweet, id)
+        })
+      })
+
+    }
+    fetchTweets()
+  }, [])
+  
+  function displayTweet(tweet, id){
+    const tweetElement = <Tweet key={id}text={tweet.text} author={tweet.author}></Tweet>
+    setTweets(prevTweets => {
+      return [tweetElement, ...prevTweets]
+    })
+  } 
+
   return (
     <div className='feed'>
         <h2>Home</h2>
@@ -10,6 +37,9 @@ export default function Feed({currentUser}) {
             <p>Following</p>
         </div>
         <Tweetbox currentUser={currentUser}></Tweetbox>
+        <div className="tweets-div">
+          {tweets}
+        </div>
     </div>
   )
 }
