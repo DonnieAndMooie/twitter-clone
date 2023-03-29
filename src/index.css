@@ -154,6 +154,7 @@ a{
     padding: 15px 30px;
     height: 100vh;
     border-right: 1px solid rgb(219, 217, 217);
+    
 }
 
 .sidebar-item{
@@ -249,6 +250,7 @@ a{
 .feed{
     padding: 10px;
     border-right: 1px solid rgb(219, 217, 217);
+    
 }
 
 .tab-container{
@@ -330,8 +332,10 @@ a{
     padding-bottom: 10px;
 }
 
-.tweet-item img{
+.tweet-item img,
+.tweet-item .profile-pic{
     height: 40px;
+    font-size: 40px !important;
     border-radius: 100px;
     grid-row: 1 / 3;
     grid-column: 1;
