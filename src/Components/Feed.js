@@ -1,8 +1,9 @@
-import { collection, getDocs, onSnapshot, query } from 'firebase/firestore'
+import { collection, onSnapshot, query } from 'firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import Tweetbox from './Tweetbox'
 import { db } from '../Firebase'
 import Tweet from './Tweet'
+import { Navigate } from 'react-router-dom'
 
 export default function Feed({currentUser}) {
   const [tweets, setTweets] = useState([])
@@ -23,7 +24,7 @@ export default function Feed({currentUser}) {
   }, [])
   
   function displayTweet(tweet, id){
-    const tweetElement = <Tweet key={id}text={tweet.text} author={tweet.author}></Tweet>
+    const tweetElement = <Tweet key={id}text={tweet.text} author={tweet.author} id={id}></Tweet>
     setTweets(prevTweets => {
       return [tweetElement, ...prevTweets]
     })
