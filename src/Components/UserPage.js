@@ -10,6 +10,23 @@ import Tweet from './Tweet'
 export default function UserPage({user, currentUser}) {
 
   const [tweets, setTweets] = useState([])
+  const [displayedUserID, setDisplayedUserID] = useState()
+
+  useEffect(() => {
+    async function fetchID(){
+      const q = query(collection(db, "users"))
+      onSnapshot(q, function(snapshot){
+        snapshot.docChanges().forEach(function(change){
+          const id = change.doc.id
+          const currentUser = change.doc.data()
+          if (user.username === currentUser.username){
+            setDisplayedUserID(id)
+          }
+        })
+      })
+    }
+    fetchID()
+  }, [user])
 
   useEffect(() => {
     async function fetchTweets(){
@@ -45,7 +62,7 @@ export default function UserPage({user, currentUser}) {
   }
 
   let button
-  if (currentUser.username === user.username){
+  if (currentUser.uid === displayedUserID){
     button = <button className="follow">Set up profile</button>
   }
   else{
