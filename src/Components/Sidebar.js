@@ -13,9 +13,16 @@ import { db } from '../Firebase'
 import { getDoc, doc } from 'firebase/firestore'
 import { useState } from 'react'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { useNavigate } from 'react-router-dom';
 
 export default function Sidebar({currentUser}) {
   const [userData, setUserData ] = useState()
+  const navigate = useNavigate()
+
+  function clickHandler(){
+    
+    navigate(`/${currentUser.uid}`)
+  } 
 
   useEffect(() => {
     async function getData(){
@@ -24,7 +31,7 @@ export default function Sidebar({currentUser}) {
       setUserData(data)
     }
     getData()
-  }, [])
+  }, [currentUser])
 
   return (
     <div className='sidebar'>
@@ -39,7 +46,7 @@ export default function Sidebar({currentUser}) {
       <SidebarItem Icon={MoreHorizIcon} text="More"></SidebarItem>
       <button className="tweet">Tweet</button>
       
-      <div className="user">
+      <div className="user" onClick={clickHandler}>
         {userData && userData.picture ? <img src={userData.picture} alt="Profile"/> : <AccountCircleIcon className="account-circle"/>}
         <p className='name'>{userData ? userData.name : ""}</p>
         <p>@{userData ? userData.username : ""}</p>

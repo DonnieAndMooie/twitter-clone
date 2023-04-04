@@ -7,7 +7,8 @@ import Retweet from '../images/retweet.png'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { Link } from 'react-router-dom';
 
-export default function TweetPage({tweet}) {
+export default function TweetPage({tweet, currentUser}) {
+  console.log(currentUser)
 
   let profilePic
   if (tweet.author.picture){
@@ -19,7 +20,7 @@ export default function TweetPage({tweet}) {
 
   return (
     <div className='home'>
-        <Sidebar></Sidebar>
+        <Sidebar currentUser={currentUser}></Sidebar>
         <div className='tweet-page'>
           <div className="tweet-page-header">
             <h2 className='back-arrow'><Link to={"/dashboard"}>🡸</Link></h2>

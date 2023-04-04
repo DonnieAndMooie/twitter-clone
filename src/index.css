@@ -111,9 +111,13 @@ input:focus{
     background-color: rgb(36, 35, 35);
 }
 
-.sign-in a{
+.login a{
     text-decoration: none;
-    color: rgb(29, 155, 240);;
+    color: rgb(29, 155, 240);
+}
+
+.login a:visited{
+    color: rgb(29, 155, 240);
 }
 
 .sign-up{
@@ -250,7 +254,8 @@ input:focus{
 }
 
 .feed,
-.tweet-page{
+.tweet-page,
+.user-page{
     padding: 10px 0;
     border-right: 1px solid rgb(219, 217, 217);
     width: 30vw;
@@ -357,6 +362,15 @@ input:focus{
     border-radius: 100px;
     grid-row: 1 ;
     grid-column: 1;
+    z-index: 100;
+}
+
+.tweet-item img:hover,
+.tweet-item .profile-pic:hover,
+.selected-tweet img:hover,
+.selected-tweet .profile-pic:hover,
+.profile-pic:hover{
+    opacity: 0.5;
 }
 
 .tweet-item .author,
@@ -393,6 +407,8 @@ input:focus{
     grid-column: 2;
     align-items: center;
     font-size: 30px;
+    justify-content: space-between;
+    width: 80%;
 }
 
 .tweet-icons img{
@@ -511,4 +527,84 @@ input:focus{
 .reply-box input{
     width: 60%;
     margin: 5px 10px;
+}
+
+.banner{
+    background-color: rgb(228, 220, 220);
+    width: 100%;
+    height: 200px;
+}
+
+.tweet-page-profile-pic{
+    height: 160px;
+    border-radius: 100px;
+    position: relative;
+    bottom: 50px;
+    border: 5px solid white;
+    margin-left: 20px;
+    font-size: 160px !important;
+}
+
+.pic-btn-div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.follow{
+    padding: 10px 20px;
+    border: 1px solid black;
+    margin-right: 20px;
+    background-color: white;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 14px;
+    position: relative;
+    bottom: 20px;
+    cursor: pointer;
+}
+
+.follow:hover{
+    background-color: rgb(216, 203, 203);
+}
+
+.user-details{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 2fr 1fr 1fr;
+    align-items: center;
+    width: 80%;
+    margin-left: 20px;
+}
+
+.user-details .name{
+    font-size: 24px;
+}
+
+.user-details .username{
+    grid-row: 2;
+    margin-bottom: 10px;
+    color: grey;
+}
+
+.user-details .following,
+.user-details .followers{
+    grid-row: 3;
+    color: grey;
+}
+
+strong{
+    color: black;
+}
+
+.user-page .tab-container p{
+    padding: 10px 8%;
+}
+
+.user-page .tab-container{
+    margin-bottom: 20px;
+}
+
+.tab-container{
+    overflow: hidden;
 }
