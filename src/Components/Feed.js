@@ -24,7 +24,7 @@ export default function Feed({currentUser}) {
   }, [])
   
   function displayTweet(tweet, id){
-    const tweetElement = <Tweet key={id}text={tweet.text} author={tweet.author} id={id}></Tweet>
+    const tweetElement = <Tweet key={id}text={tweet.text} author={tweet.author} id={id} numReplies={tweet.replies ? tweet.replies.length : 0}></Tweet>
     setTweets(prevTweets => {
       return [tweetElement, ...prevTweets]
     })

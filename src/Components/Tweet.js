@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import {query, collection, onSnapshot } from 'firebase/firestore';
 import { db } from '../Firebase';
 
-export default function Tweet({text, author, id}) {
+export default function Tweet({text, author, id, numReplies}) {
   const navigate = useNavigate()
   const [authorID, setAuthorID] = useState()
 
@@ -56,7 +56,11 @@ export default function Tweet({text, author, id}) {
         </div>
         <p className='text'>{text}</p>
         <div className="tweet-icons">
+          <div className="comment">
           <img src={Comment} alt="Comment" className='comment'/>
+          <p className='num-replies'>{numReplies}</p>
+        </div>
+          
           <img src={Retweet} alt="Retweet" className='retweet'/>
           <FavoriteBorderIcon className='like'></FavoriteBorderIcon>
         </div>
