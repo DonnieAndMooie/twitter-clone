@@ -44,7 +44,7 @@ export default function TweetPage({tweet, currentUser}) {
   }, [id])
 
   function displayReply(tweet, i){
-    const tweetElement = <Tweet key={i}text={tweet.text} author={tweet.author} id={id}></Tweet>
+    const tweetElement = <Tweet key={i}text={tweet.text} author={tweet.author} id={id} currentUser={currentUser}></Tweet>
     setReplies(prevReplies => {
       return [tweetElement, ...prevReplies]
     })
@@ -101,9 +101,17 @@ export default function TweetPage({tweet, currentUser}) {
           </div>
           <p className='text'>{tweet.text}</p>
             <div className="tweet-icons">
-              <img src={Comment} alt="Comment" className='comment'/>
+              <div className="comment">
+                <img src={Comment} alt="Comment"/>
+                <p>{tweet.replies ? tweet.replies.length : 0}</p>
+              </div>
+              
               <img src={Retweet} alt="Retweet" className='retweet'/>
-              <FavoriteBorderIcon className='like'></FavoriteBorderIcon>
+              <div className="like">
+                <FavoriteBorderIcon className='like'></FavoriteBorderIcon>
+                <p>{tweet.likes ? tweet.likes.length : 0}</p>
+              </div>
+              
             </div>
           </div>
           <div className="reply-box">

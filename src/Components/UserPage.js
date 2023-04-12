@@ -33,6 +33,9 @@ export default function UserPage({user, currentUser}) {
       const q = query(collection(db, "tweets"))
       onSnapshot(q, function(snapshot){
         snapshot.docChanges().forEach(function(change){
+          if (change.type === "modified"){
+            return false
+          }
           const id = change.doc.id
           const tweet = change.doc.data()
           if (tweet.author.username === user.username){
@@ -47,7 +50,12 @@ export default function UserPage({user, currentUser}) {
   }, [user])
 
   function displayTweet(tweet, id){
-    const tweetElement = <Tweet key={id}text={tweet.text} author={tweet.author} id={id}></Tweet>
+    const tweetElement = <Tweet key={id}text={tweet.text}
+    author={tweet.author}
+    id={id}
+    currentUser={currentUser}
+    numLikes={tweet.likes ? tweet.likes.length : 0}
+    numReplies={tweet.replies ? tweet.replies.length : 0}></Tweet>
     setTweets(prevTweets => {
       return [tweetElement, ...prevTweets]
     })

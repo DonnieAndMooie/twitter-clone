@@ -421,13 +421,9 @@ input:focus{
     cursor: pointer;
     border-radius: 100px;
     display: flex;
-}
-
-.comment{
     gap: 10px;
     align-items: center;
 }
-
 
 .comment:hover{
     background-color: rgba(29, 155, 240, 0.4);
@@ -492,6 +488,7 @@ input:focus{
     font-size: 24px;
     padding: 18px 10px;
     align-items: center;
+    cursor: auto
 }
 
 .selected-tweet .tweet-icons{
@@ -616,8 +613,18 @@ strong{
     overflow: hidden;
 }
 
-.num-replies{
+.num-replies,
+.num-retweets,
+.num-likes{
     font-size: 12px;
     color: grey;
+}
 
+.liked{
+    background-color: red;
+    border-radius: 100%;
+}
+
+.liked:hover{
+    background-color: rgb(179, 6, 6);
 }
