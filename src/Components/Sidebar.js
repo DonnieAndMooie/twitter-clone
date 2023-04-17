@@ -22,7 +22,11 @@ export default function Sidebar({currentUser}) {
   function clickHandler(){
     
     navigate(`/${currentUser.uid}`)
-  } 
+  }
+
+  function navigateHome(){
+    navigate(`/dashboard`)
+  }
 
   useEffect(() => {
     async function getData(){
@@ -36,7 +40,7 @@ export default function Sidebar({currentUser}) {
   return (
     <div className='sidebar'>
       <TwitterIcon className='twitter'></TwitterIcon>
-      <SidebarItem Icon={HomeIcon} text="Home" selected={true}></SidebarItem>
+      <SidebarItem Icon={HomeIcon} text="Home" selected={true} onClick={navigateHome}></SidebarItem>
       <SidebarItem Icon={TagIcon} text="Explore"></SidebarItem>
       <SidebarItem Icon={NotificationsNoneIcon} text="Notifications"></SidebarItem>
       <SidebarItem Icon={MailOutlineIcon} text="Messages"></SidebarItem>
