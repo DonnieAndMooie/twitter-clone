@@ -13,6 +13,7 @@ export default function UserPage({user, currentUser}) {
   const [displayedUserID, setDisplayedUserID] = useState()
 
   useEffect(() => {
+    //Fetch ID of user to be displayed by matching username
     async function fetchID(){
       const q = query(collection(db, "users"))
       onSnapshot(q, function(snapshot){
@@ -29,6 +30,7 @@ export default function UserPage({user, currentUser}) {
   }, [user])
 
   useEffect(() => {
+    //Fetch all tweets by user
     async function fetchTweets(){
       const q = query(collection(db, "tweets"))
       onSnapshot(q, function(snapshot){
@@ -40,9 +42,6 @@ export default function UserPage({user, currentUser}) {
           const tweet = change.doc.data()
           if (tweet.author.username === user.username){
             displayTweet(tweet, id)
-            if (tweet.retweets){
-              displayRetweets(tweet.retweets)
-            }
           }
           
         })
@@ -65,10 +64,8 @@ export default function UserPage({user, currentUser}) {
     })
   }
 
-  function displayRetweets(retweets){
-    console.log(retweets)
-  }
 
+  //Set profile pic
   let profilePic
   if (user.picture){
     profilePic = <img className='tweet-page-profile-pic' src={user.picture} alt="Profile" />
@@ -78,6 +75,7 @@ export default function UserPage({user, currentUser}) {
   }
 
   let button
+  //If viewing own profile show different button text
   if (currentUser.uid === displayedUserID){
     button = <button className="follow">Set up profile</button>
   }

@@ -3,13 +3,13 @@ import React, { useEffect, useState } from 'react'
 import Tweetbox from './Tweetbox'
 import { db } from '../Firebase'
 import Tweet from './Tweet'
-import { Navigate } from 'react-router-dom'
 import Retweet from './Retweet'
 
 export default function Feed({currentUser}) {
   const [tweets, setTweets] = useState([])
 
   useEffect(() => {
+    //Fetch and load tweets from database
     async function fetchTweets(){
       const q = query(collection(db, "tweets"))
       onSnapshot(q, function(snapshot){
@@ -17,6 +17,8 @@ export default function Feed({currentUser}) {
 
           const id = change.doc.id
           const tweet = change.doc.data()
+
+          //If a tweet is changed, update accordingly
           if (change.type === "modified"){
             const likesElement = document.querySelector(`#${id} .num-likes`)
             if (likesElement){
@@ -31,6 +33,7 @@ export default function Feed({currentUser}) {
               tweetPageRepliesElement.textContent = tweet.replies.length
             }
             
+            //When retweeted, display retweet
             if (tweet.retweets && 
                 !document.querySelector(`#${id}-${currentUser.uid}`) &&
                 tweet.retweets[tweet.retweets.length - 1] === currentUser.uid){
@@ -38,6 +41,8 @@ export default function Feed({currentUser}) {
             }
             return
           }
+
+          //Display all tweets and retweets
           displayTweet(tweet, id)
           if (tweet.retweets){
             tweet.retweets.forEach((retweet) => displayRetweet(tweet, id, retweet))
@@ -79,6 +84,7 @@ export default function Feed({currentUser}) {
   
 
   async function findUser(user){
+    //Find a user name from an ID
     try{
       const docSnap = await getDoc(doc(db, "users", user))
       const data = docSnap.data()

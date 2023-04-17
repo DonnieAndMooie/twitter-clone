@@ -13,6 +13,7 @@ export default function Tweetbox({currentUser}) {
 const [userData, setUserData] = useState()
 
   useEffect(() => {
+    //Fetch current user details
     async function getData(){
       const userInfo = await getDoc(doc(db, "users", currentUser.uid))
       const data = userInfo.data()
@@ -24,6 +25,8 @@ const [userData, setUserData] = useState()
   async function tweetHandler(){
     const tweetbox = document.getElementById("tweet-input")
     const tweet = tweetbox.value
+
+    //Don't tweet blank tweets
     if (tweet === ""){
         return
     }

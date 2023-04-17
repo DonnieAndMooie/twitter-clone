@@ -20,15 +20,17 @@ export default function Sidebar({currentUser}) {
   const navigate = useNavigate()
 
   function clickHandler(){
-    
+    //When current user profile is clicked navigate to user page
     navigate(`/${currentUser.uid}`)
   }
 
   function navigateHome(){
+    //When home is clicked navigate home
     navigate(`/dashboard`)
   }
 
   useEffect(() => {
+    //Fetch current user data to display on sidebar
     async function getData(){
       const userInfo = await getDoc(doc(db, "users", currentUser.uid))
       const data = userInfo.data()

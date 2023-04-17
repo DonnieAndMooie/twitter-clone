@@ -14,6 +14,8 @@ export default function Tweet({text, author, id, numReplies, currentUser, numLik
   const [retweeted, setRetweeted] = useState(false)
 
   useEffect(() => {
+
+    //Find authors ID by finding matching username
     async function fetchUserID(){
       const q = query(collection(db, "users"))
       onSnapshot(q, function(snapshot){
@@ -34,7 +36,8 @@ export default function Tweet({text, author, id, numReplies, currentUser, numLik
       const docRef = doc(db, "tweets", originalID ? originalID : id)
       const docSnap = await getDoc(docRef)
       const data = docSnap.data()
-      setLiked(true)
+
+      //Check if tweet has been like previously
       if (data.likes && data.likes.includes(currentUser.uid)){
         setLiked(true)
       }
@@ -46,11 +49,15 @@ export default function Tweet({text, author, id, numReplies, currentUser, numLik
       const docRef = doc(db, "tweets", originalID ? originalID : id)
       const docSnap = await getDoc(docRef)
       const data = docSnap.data()
+
+      //Check if tweet has been retweeted previously
       if (data.retweets && data.retweets.includes(currentUser.uid)){
         setRetweeted(true)
       }
     }
     
+
+    //Don't run this if the tweet is a reply
     if(!reply){
       checkIfLiked()
       checkIfRetweeted()
@@ -62,6 +69,8 @@ export default function Tweet({text, author, id, numReplies, currentUser, numLik
 
 
   let profilePic
+
+  //Set profile pic to google profile pic or default icon
   
   if (author.picture){
     profilePic = <img src={author.picture} alt="Profile" onClick={e => profileClickHandler(e)}/>
@@ -69,6 +78,7 @@ export default function Tweet({text, author, id, numReplies, currentUser, numLik
   else{
     profilePic = <AccountCircleIcon className='profile-pic' onClick={e => profileClickHandler(e)}></AccountCircleIcon>
   }
+
 
   function clickHandler(){
     if (originalID){
@@ -93,12 +103,16 @@ export default function Tweet({text, author, id, numReplies, currentUser, numLik
     const docRef = doc(db, "tweets", originalID ? originalID : id)
     const docSnap = await getDoc(docRef)
     const data = docSnap.data()
+
+    //If liked previously, remove like
     if (data.likes && data.likes.includes(currentUser.uid)){
       await updateDoc(docRef, {
         likes: arrayRemove(currentUser.uid)
       }, {merge: true})
       setLiked(false)
     }
+
+    //If not liked, add like
     else{
       await updateDoc(docRef, {
         likes: arrayUnion(currentUser.uid)
@@ -112,6 +126,8 @@ export default function Tweet({text, author, id, numReplies, currentUser, numLik
     const docRef = doc(db, "tweets", originalID ? originalID : id)
     const docSnap = await getDoc(docRef)
     const data = docSnap.data()
+
+    //Add retweet
     await updateDoc(docRef, {
       retweets: arrayUnion(currentUser.uid)
     }, {merge: true})

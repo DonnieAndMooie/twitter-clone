@@ -35,6 +35,7 @@ export default function Login({setCurrentUser}) {
   }
 
   function submitHandler(e){
+    //Sign in with inputted email and password
     e.preventDefault()
     const email = document.getElementById("login-email").value
     const password = document.getElementById("login-password").value
@@ -65,7 +66,7 @@ export default function Login({setCurrentUser}) {
   return (
     <div className='login-page'>
         <div className="login">
-        <TwitterIcon className='twitter' ></TwitterIcon>
+        <TwitterIcon className='twitter'></TwitterIcon>
         <h2>Sign in to Twitter</h2>
         <div className="google-sign-in" onClick={googleSignIn}>
           <GoogleIcon className='google'></GoogleIcon>

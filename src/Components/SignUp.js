@@ -5,7 +5,6 @@ import { Navigate } from 'react-router-dom';
 import { useState } from 'react';
 import { setDoc, doc } from "firebase/firestore"
 import { db } from '../Firebase';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export default function SignUp() {
   const [signedUp, setSignedUp] = useState(false)
@@ -25,6 +24,8 @@ export default function SignUp() {
     e.preventDefault()
     const email = document.getElementById("email").value
     const password = document.getElementById("password").value
+
+    //Create new account
     const auth = getAuth()
     createUserWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
@@ -43,6 +44,7 @@ export default function SignUp() {
   }
 
 
+  //Redirect to login page when account created
   if (signedUp){
     return(
       <Navigate to={"/"}></Navigate>

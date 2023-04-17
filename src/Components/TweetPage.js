@@ -14,9 +14,12 @@ import Tweet from './Tweet';
 export default function TweetPage({tweet, currentUser}) {
   const [userData, setUserData] = useState()
   const [replies, setReplies] = useState([])
+
+  //Retrieve tweet ID from URL
   const id = getCurrentURL().split("/").pop()
 
   useEffect(() => {
+    //Get current user data
     async function getData(){
       const userInfo = await getDoc(doc(db, "users", currentUser.uid))
       const data = userInfo.data()
@@ -31,6 +34,7 @@ export default function TweetPage({tweet, currentUser}) {
         setReplies([])
         const replies = doc.data().replies
         if (replies){
+          //Display each reply
           replies.forEach((reply, i) => {
             displayReply(reply, i)
           })
@@ -50,6 +54,8 @@ export default function TweetPage({tweet, currentUser}) {
     })
   }
 
+  //Set profile pic to Google pic or default icon
+
   let profilePic
   if (tweet.author.picture){
     profilePic = <img src={tweet.author.picture} alt="Profile" className='profile-pic' />
@@ -60,6 +66,7 @@ export default function TweetPage({tweet, currentUser}) {
 
   
 
+  //Handle tweeting replies
   async function tweetHandler(){
     const input = document.getElementById("reply-input")
     const inputValue = document.getElementById("reply-input").value
