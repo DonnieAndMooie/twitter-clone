@@ -40,6 +40,9 @@ export default function UserPage({user, currentUser}) {
           const tweet = change.doc.data()
           if (tweet.author.username === user.username){
             displayTweet(tweet, id)
+            if (tweet.retweets){
+              displayRetweets(tweet.retweets)
+            }
           }
           
         })
@@ -55,10 +58,15 @@ export default function UserPage({user, currentUser}) {
     id={id}
     currentUser={currentUser}
     numLikes={tweet.likes ? tweet.likes.length : 0}
-    numReplies={tweet.replies ? tweet.replies.length : 0}></Tweet>
+    numReplies={tweet.replies ? tweet.replies.length : 0}
+    numRetweets={tweet.retweets ? tweet.retweets.length : 0}></Tweet>
     setTweets(prevTweets => {
       return [tweetElement, ...prevTweets]
     })
+  }
+
+  function displayRetweets(retweets){
+    console.log(retweets)
   }
 
   let profilePic

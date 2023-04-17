@@ -628,3 +628,19 @@ strong{
 .liked:hover{
     background-color: rgb(179, 6, 6);
 }
+
+.retweeted{
+    background-color: green;
+}
+
+.retweet-div{
+    display: flex;
+    padding: 5px 10px;
+    color: rgb(77, 75, 75);
+    font-weight: bold;
+    gap: 10px;
+}
+
+.retweet-div img{
+    height: 14px;
+}

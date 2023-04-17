@@ -7,10 +7,11 @@ import { useNavigate } from 'react-router-dom';
 import {query, collection, onSnapshot, doc, updateDoc, arrayUnion, getDoc, arrayRemove } from 'firebase/firestore';
 import { db } from '../Firebase';
 
-export default function Tweet({text, author, id, numReplies, currentUser, numLikes}) {
+export default function Tweet({text, author, id, numReplies, currentUser, numLikes, numRetweets, originalID, reply}) {
   const navigate = useNavigate()
   const [authorID, setAuthorID] = useState()
   const [liked, setLiked] = useState(false)
+  const [retweeted, setRetweeted] = useState(false)
 
   useEffect(() => {
     async function fetchUserID(){
@@ -30,7 +31,7 @@ export default function Tweet({text, author, id, numReplies, currentUser, numLik
 
   useEffect(() => {
     async function checkIfLiked(){
-      const docRef = doc(db, "tweets", id)
+      const docRef = doc(db, "tweets", originalID ? originalID : id)
       const docSnap = await getDoc(docRef)
       const data = docSnap.data()
       setLiked(true)
@@ -41,8 +42,21 @@ export default function Tweet({text, author, id, numReplies, currentUser, numLik
         setLiked(false)
       }
     }
-    checkIfLiked()
-  },[currentUser, id])
+    async function checkIfRetweeted(){
+      const docRef = doc(db, "tweets", originalID ? originalID : id)
+      const docSnap = await getDoc(docRef)
+      const data = docSnap.data()
+      if (data.retweets && data.retweets.includes(currentUser.uid)){
+        setRetweeted(true)
+      }
+    }
+    
+    if(!reply){
+      checkIfLiked()
+      checkIfRetweeted()
+    }
+    
+  },[currentUser, id, originalID, reply])
   
   
 
@@ -57,7 +71,13 @@ export default function Tweet({text, author, id, numReplies, currentUser, numLik
   }
 
   function clickHandler(){
-    navigate(`/${id}`)
+    if (originalID){
+      navigate(`/${originalID}`)
+    }
+    else{
+      navigate(`/${id}`)
+    }
+    
   } 
 
 
@@ -70,7 +90,7 @@ export default function Tweet({text, author, id, numReplies, currentUser, numLik
 
   async function likeHandler(e){
     e.stopPropagation()
-    const docRef = doc(db, "tweets", id)
+    const docRef = doc(db, "tweets", originalID ? originalID : id)
     const docSnap = await getDoc(docRef)
     const data = docSnap.data()
     if (data.likes && data.likes.includes(currentUser.uid)){
@@ -87,6 +107,19 @@ export default function Tweet({text, author, id, numReplies, currentUser, numLik
     } 
   }
 
+  async function retweetHandler(e){
+    e.stopPropagation()
+    const docRef = doc(db, "tweets", originalID ? originalID : id)
+    const docSnap = await getDoc(docRef)
+    const data = docSnap.data()
+    await updateDoc(docRef, {
+      retweets: arrayUnion(currentUser.uid)
+    }, {merge: true})
+      setRetweeted(true)
+    } 
+
+
+
   return (
     <div className='tweet-item' onClick={clickHandler} id={id}>
         {profilePic}
@@ -100,11 +133,11 @@ export default function Tweet({text, author, id, numReplies, currentUser, numLik
           <img src={Comment} alt="Comment" className='comment'/>
           <p className='num-replies'>{numReplies}</p>
         </div>
-        <div className="retweet">
-          <img src={Retweet} alt="Retweet" className='retweet'/>
-          <p className='num-retweets'>0</p>
+        <div className="retweet" onClick={reply ? null : retweetHandler}>
+          <img src={Retweet} alt="Retweet" className={retweeted ? "retweeted" : ""}/>
+          <p className='num-retweets'>{numRetweets}</p>
         </div>
-          <div className="like" onClick={(e) => likeHandler(e)}>
+          <div className="like" onClick={reply ? null : (e) => likeHandler(e)}>
             <FavoriteBorderIcon className={liked ? "liked" : ""}></FavoriteBorderIcon>
             <p className='num-likes'>{numLikes}</p>
           </div>
