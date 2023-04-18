@@ -54,7 +54,6 @@ export default function RouteSwitch() {
   
 
   return (
-    <BrowserRouter>
         <Routes>
             <Route path="/" element={<App setCurrentUser={setCurrentUser}/>}></Route>
             <Route path="/sign-up" element={<SignUp />}></Route>
@@ -62,6 +61,5 @@ export default function RouteSwitch() {
             {tweetRoutes}
             {userRoutes}
         </Routes>
-    </BrowserRouter>
   )
 }
