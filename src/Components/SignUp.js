@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { setDoc, doc } from "firebase/firestore"
 import { db } from '../Firebase';
 
-export default function SignUp() {
+export default function SignUp({submitMock}) {
   const [signedUp, setSignedUp] = useState(false)
 
   function checkPasswordsMatch(){
@@ -56,7 +56,7 @@ export default function SignUp() {
         <div className="sign-up-div">
           <TwitterIcon className="twitter"></TwitterIcon>
         <h1>Create your account</h1>
-          <form action="" className='sign-up-form' onSubmit={(e) => submitHandler(e)}>
+          <form action="" className='sign-up-form' onSubmit={submitMock ? submitMock : (e) => submitHandler(e)}>
             <input type="text" placeholder='Name' name="name" id="name"/>
             <input type="text" placeholder='Username' name="username" id="username"/>
             <input type="text" placeholder='Email' name="email" id="email"/>

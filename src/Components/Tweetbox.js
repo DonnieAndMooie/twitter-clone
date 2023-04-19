@@ -9,7 +9,7 @@ import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 
-export default function Tweetbox({currentUser}) {
+export default function Tweetbox({currentUser, tweetMock}) {
 const [userData, setUserData] = useState()
 
   useEffect(() => {
@@ -31,6 +31,10 @@ const [userData, setUserData] = useState()
         return
     }
     else{
+      if(tweetMock){
+        tweetMock()
+        return
+      }
         tweetbox.value = ""
         await addDoc(collection(db, "tweets"), {
             text: tweet,
@@ -42,14 +46,14 @@ const [userData, setUserData] = useState()
   return (
     <div className='tweetbox'>
         {userData && userData.picture ? <img src={userData.picture} alt="Profile"/> : <AccountCircleIcon className="account-circle"/>}
-        <input type="text" id="tweet-input" maxLength={280} placeholder="What's Happening?"/>
+        <input data-testid="input" type="text" id="tweet-input" maxLength={280} placeholder="What's Happening?"/>
         <div className="icons">
-            <ImageIcon></ImageIcon>
-            <GifIcon></GifIcon>
-            <BallotIcon></BallotIcon>
-            <SentimentSatisfiedAltIcon></SentimentSatisfiedAltIcon>
-            <CalendarTodayIcon></CalendarTodayIcon>
-            <LocationOnIcon></LocationOnIcon>
+            <ImageIcon data-testid="tweetbox-icon"></ImageIcon>
+            <GifIcon data-testid="tweetbox-icon"></GifIcon>
+            <BallotIcon data-testid="tweetbox-icon"></BallotIcon>
+            <SentimentSatisfiedAltIcon data-testid="tweetbox-icon"></SentimentSatisfiedAltIcon>
+            <CalendarTodayIcon data-testid="tweetbox-icon"></CalendarTodayIcon>
+            <LocationOnIcon data-testid="tweetbox-icon"></LocationOnIcon>
             <button className="tweetbox-tweetbtn" onClick={tweetHandler}>Tweet</button>
         </div>
     </div>

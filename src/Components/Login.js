@@ -8,7 +8,7 @@ import { Navigate } from 'react-router-dom';
 import { db } from '../Firebase';
 import { setDoc, doc } from 'firebase/firestore';
 
-export default function Login({setCurrentUser}) {
+export default function Login({setCurrentUser, submitMock}) {
   const [signedIn, setSignedIn] = useState(false)
 
  function googleSignIn(){
@@ -77,10 +77,10 @@ export default function Login({setCurrentUser}) {
             <p>or</p>
             <hr />
           </div>
-          <form action="" onSubmit={(e) => submitHandler(e)}>
+          <form action="" onSubmit={submitMock ? submitMock : (e) => submitHandler(e)}>
             <input type="text" placeholder='Email' id='login-email'/>
             <input type="password" placeholder='Password' id='login-password'/>
-            <button className='sign-in' type='submit'>Sign In</button>
+            <button className='sign-in' type='submit' data-testid="email-sign-in">Sign In</button>
             <p className="error-message hide">Incorrect email or password</p>
           </form>
           

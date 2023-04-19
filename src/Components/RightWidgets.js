@@ -4,7 +4,7 @@ import TrendingItem from './TrendingItem'
 export default function RightWidgets() {
   return (
     <div className='right-widgets'>
-        <input type="text"  className='serch' placeholder='Search Twitter'/>
+        <input type="text" data-testid="search"  className='serch' placeholder='Search Twitter'/>
         <div className="whats-happening">
             <h2>What's happening</h2>
             <TrendingItem name={"Liverpool"} numTweets="27.4K"></TrendingItem>
